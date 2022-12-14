@@ -1,28 +1,52 @@
 package com.dodi.helpdesk.domain;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import javax.persistence.CollectionTable;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 import com.dodi.helpdesk.domain.enums.Perfil;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
-public abstract class Pessoa {
-
+@Entity
+public abstract class Pessoa implements Serializable{
+	private static final long serialVersionUID = 1L;
+	
 //HashSet evita a exceção de ponteiro nulo
 //O Set não permite dois valores iguais dentro da lista; permite apenas um único perfil para a pessoa.
 //LocalDate.now() pega o momento atual em que a instância do objeto foi criada.
 //O construtor da super classe(construtor sem os parâmentros)é quando se quer criar um objeto da classe sem atribuir valor(objeto vazio)
 //HashCod And Equals faz comparação de seus objetos pelos valores de seus atributos, não pelo valor em memória
 //map é um stream de modificação intermediário que modifica o fluxo de dados
-
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)//o BD fica responsável por gerar o Id distinto para cada objeto diferente.
 	protected Integer id;
 	protected String nome;
+
+	@Column(unique = true)//coluna única. Não vai existir dois cpfs com os mesmos valores.
 	protected String cpf;
+	
+	@Column(unique = true)
 	protected String email;
 	protected String senha;
+	
+	@ElementCollection(fetch = FetchType.EAGER)//Quando o usário for chamado, ele carregará a lista de perfis.
+	@CollectionTable(name = "PERFIS")//Cria uma tabela no BD chamada perfis
 	protected Set<Integer> perfis = new HashSet<>();
+	
+	@JsonFormat(pattern = "dd/MM/YYYY")
 	protected LocalDate dataCriacao = LocalDate.now();
 	
 	public Pessoa() {
