@@ -7,11 +7,13 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
 import com.dodi.helpdesk.domain.enums.Perfil;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Tecnico extends Pessoa{
 	private static final long serialVersionUID = 1L;
 	
+	@JsonIgnore//Ignora o campo e não traz numa consulta por id do tecnico.
 	@OneToMany(mappedBy = "tecnico")
 	private List<Chamado> chamados = new ArrayList<>();
 
