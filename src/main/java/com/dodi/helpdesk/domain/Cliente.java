@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Cliente extends Pessoa{
 	private static final long serialVersionUID = 1L;
 	
-	@JsonIgnore
+	@JsonIgnore//Também protege contra serialização
 	@OneToMany(mappedBy = "cliente")
 	private List<Chamado> chamados = new ArrayList<>();
 

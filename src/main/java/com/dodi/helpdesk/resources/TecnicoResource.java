@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dodi.helpdesk.domain.Tecnico;
+import com.dodi.helpdesk.domain.dtos.TecnicoDTO;
 import com.dodi.helpdesk.services.TecnicoService;
 
 @RestController
@@ -19,9 +20,9 @@ public class TecnicoResource {
 	
 	//ResponseEntity Trabalha toda resposta http.
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<Tecnico> findById(@PathVariable Integer id){
+	public ResponseEntity<TecnicoDTO> findById(@PathVariable Integer id){
 		Tecnico obj = service.findByid(id);
-		return ResponseEntity.ok().body(obj);
+		return ResponseEntity.ok().body(new TecnicoDTO(obj));
 	}
 
 }

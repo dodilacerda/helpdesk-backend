@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Tecnico extends Pessoa{
 	private static final long serialVersionUID = 1L;
 	
-	@JsonIgnore//Ignora o campo e não traz numa consulta por id do tecnico.
+	@JsonIgnore//Ele ignora a lista de chamados e retorna apenas a consulta pelo Id.
 	@OneToMany(mappedBy = "tecnico")
 	private List<Chamado> chamados = new ArrayList<>();
 
