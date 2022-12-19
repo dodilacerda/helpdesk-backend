@@ -36,6 +36,7 @@ public class TecnicoDTO implements Serializable{
 
 	public TecnicoDTO() {
 		super();
+		addPerfil(Perfil.CLIENTE);
 	}
 
 	public TecnicoDTO(Tecnico obj) {
@@ -48,6 +49,7 @@ public class TecnicoDTO implements Serializable{
 //obj.getPerfis() pega apenas o código e não a lista que é criada na classe pessoa
 		this.perfis = obj.getPerfis().stream().map(x -> x.getCodigo()).collect(Collectors.toSet());
 		this.dataCriacao = obj.getDataCriacao();
+		addPerfil(Perfil.CLIENTE);
 	}
 //Não precisa criar o HashCodEquals porque essa classe não salva no BD, apenas apresenta na View.
 
