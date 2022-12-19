@@ -1,5 +1,9 @@
 package com.dodi.helpdesk.resources;
 
+import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +27,17 @@ public class TecnicoResource {
 	public ResponseEntity<TecnicoDTO> findById(@PathVariable Integer id){
 		Tecnico obj = service.findByid(id);
 		return ResponseEntity.ok().body(new TecnicoDTO(obj));
+	}
+	
+	//Esse método será chamado quando não houver nenhum parâmetro passado no método acima.
+	@GetMapping
+	public ResponseEntity<List<TecnicoDTO>> findAll(){
+		//Primeiro pega uma lista da classe Tecnico.
+		//Depois cria o objeto pela classe TecnicoDTO através da list criada anteriormente para garantir a segurança.
+		List<Tecnico> list = service.findAll();
+		List<TecnicoDTO> listDTO = list.stream().map(obj -> new TecnicoDTO(obj)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDTO);
+		
 	}
 
 }
