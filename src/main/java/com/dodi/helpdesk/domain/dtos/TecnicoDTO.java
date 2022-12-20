@@ -13,6 +13,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 
 import com.dodi.helpdesk.domain.Tecnico;
 import com.dodi.helpdesk.domain.enums.Perfil;
@@ -22,11 +23,16 @@ public class TecnicoDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	protected Integer id;
+	@NotNull(message = "Ocampo NOME é requerido!")
 	protected String nome;
 
+	@NotNull(message = "Ocampo CPF é requerido!")
 	protected String cpf;
 	
+	@NotNull(message = "Ocampo E-MAIL é requerido!")
 	protected String email;
+	
+	@NotNull(message = "Ocampo SENHA é requerido!")
 	protected String senha;
 	
 	protected Set<Integer> perfis = new HashSet<>();
