@@ -16,6 +16,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.hibernate.validator.constraints.br.CPF;
+
 import com.dodi.helpdesk.domain.enums.Perfil;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -35,6 +37,8 @@ public abstract class Pessoa implements Serializable{
 	protected Integer id;
 	protected String nome;
 
+	//A Anotation CPF já faz a valdação se o cpf existe.
+	@CPF
 	@Column(unique = true)//coluna única. Não vai existir dois cpfs com os mesmos valores.
 	protected String cpf;
 	
