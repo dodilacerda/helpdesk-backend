@@ -8,11 +8,11 @@ import java.util.stream.Collectors;
 
 import javax.validation.constraints.NotNull;
 
-import com.dodi.helpdesk.domain.Tecnico;
+import com.dodi.helpdesk.domain.Cliente;
 import com.dodi.helpdesk.domain.enums.Perfil;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-public class TecnicoDTO implements Serializable{
+public class ClienteDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	protected Integer id;
@@ -33,12 +33,12 @@ public class TecnicoDTO implements Serializable{
 	@JsonFormat(pattern = "dd/MM/YYYY")
 	protected LocalDate dataCriacao = LocalDate.now();
 
-	public TecnicoDTO() {
+	public ClienteDTO() {
 		super();
 		addPerfil(Perfil.CLIENTE);
 	}
 
-	public TecnicoDTO(Tecnico obj) {
+	public ClienteDTO(Cliente obj) {
 		super();
 		this.id = obj.getId();
 		this.nome = obj.getNome();
