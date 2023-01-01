@@ -6,6 +6,7 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.dodi.helpdesk.domain.Pessoa;
@@ -20,11 +21,11 @@ import com.dodi.helpdesk.services.exceptions.ObjectNotFoundException;
 public class TecnicoService {
 
 	@Autowired
-	private TecnicoRepository repository;
-	
+	private TecnicoRepository repository;	
 	@Autowired 
 	private PessoaRepository pessoaRepository;
-	
+	@Autowired
+	private BCryptPasswordEncoder encoder;
 	
 	public Tecnico findByid(Integer id) {
 		Optional<Tecnico> obj = repository.findById(id);
@@ -37,6 +38,7 @@ public class TecnicoService {
 	
 	public Tecnico create(TecnicoDTO objDTO) {
 		//Assegura o Id nulo para o banco, pois pode ser que venha algum id na requisição e o BD entenda que é um update.
+		objDTO.setSenha(encoder.encode(objDTO.getSenha()));
 		objDTO.setId(null);
 		validaPorCpfEEmail(objDTO);
 		Tecnico newObj = new Tecnico(objDTO);

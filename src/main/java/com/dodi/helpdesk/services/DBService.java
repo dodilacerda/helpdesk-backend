@@ -3,6 +3,7 @@ package com.dodi.helpdesk.services;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.dodi.helpdesk.domain.Chamado;
@@ -24,17 +25,19 @@ public class DBService {
 	private ClienteRepository clienteRepository;
 	@Autowired
 	private ChamadoRepository chamadoRepository;
+	@Autowired
+	private BCryptPasswordEncoder encoder;
 
 	public void instanciaDB() {
-		Tecnico tec1 = new Tecnico(null, "Valdir Cesar", "247.930.150-21", "dodi2@mail.com", "123");
+		Tecnico tec1 = new Tecnico(null, "Valdir Cesar", "247.930.150-21", "dodi2@mail.com", encoder.encode("123"));
 		tec1.addPerfil(Perfil.TECNICO);
-		Tecnico tec2 = new Tecnico(null, "Jorge Lacerda", "486.222.310-97", "Jorge@mail.com", "123");
+		Tecnico tec2 = new Tecnico(null, "Jorge Lacerda", "486.222.310-97", "Jorge@mail.com", encoder.encode("123"));
 		tec2.addPerfil(Perfil.ADMIN);
-		Tecnico tec3 = new Tecnico(null, "Dodi Lacerda", "317.616.830-63", "dodao@mail.com", "123");
+		Tecnico tec3 = new Tecnico(null, "Dodi Lacerda", "317.616.830-63", "dodao@mail.com", encoder.encode("123"));
 		tec3.addPerfil(Perfil.TECNICO);
 		
-		Cliente cli1 = new Cliente(null, "Linus Torvalds", "826.114.640-30", "Linus2@mail.com", "123");
-		Cliente cli2 = new Cliente(null, "Nome Qualquer", "710.950.280-57", "nome@mail.com", "123");
+		Cliente cli1 = new Cliente(null, "Linus Torvalds", "826.114.640-30", "Linus2@mail.com", encoder.encode("123"));
+		Cliente cli2 = new Cliente(null, "Nome Qualquer", "710.950.280-57", "nome@mail.com", encoder.encode("123"));
 		
 		Chamado c1 = new Chamado(null, Prioridade.MEDIA, Status.ANDAMENTO, "Chamado 01", "Primeiro chamado", tec1, cli1);
 		Chamado c2 = new Chamado(null, Prioridade.ALTA, Status.ANDAMENTO, "Chamado 02", "Segunda chamado", tec3, cli2);
